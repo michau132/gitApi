@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './Form.jsx';
 import UserInfo from './UserInfo.jsx';
-const xxx = '?client_id=fccd37f38519b0d71cd7&client_secret=61572c304be174f925b52e267794cf5c9f768e00';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ class App extends React.Component {
                 userRepo: []
             })
         } else {
-            fetch('https://api.github.com/users/' + event +xxx)
+            fetch('https://api.github.com/users/' + event)
                 .then( result => result.json())
                 .then(that => {
                     this.setState({user: that})
@@ -28,7 +28,7 @@ class App extends React.Component {
                     console.log('ERROR!' + err)
                 });
 
-            fetch('https://api.github.com/users/' + event + '/repos' + xxx)
+            fetch('https://api.github.com/users/' + event + '/repos')
                 .then( result => result.json())
                 .then(that => {
                     that.sort((a, b) => {
@@ -44,8 +44,6 @@ class App extends React.Component {
                     console.log('ERROR!' + err)
                 })
         }
-
-
     }
 
     render() {

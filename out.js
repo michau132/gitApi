@@ -22168,8 +22168,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var xxx = '?client_id=fccd37f38519b0d71cd7&client_secret=61572c304be174f925b52e267794cf5c9f768e00';
-
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
 
@@ -22197,7 +22195,7 @@ var App = function (_React$Component) {
                     userRepo: []
                 });
             } else {
-                fetch('https://api.github.com/users/' + event + xxx).then(function (result) {
+                fetch('https://api.github.com/users/' + event).then(function (result) {
                     return result.json();
                 }).then(function (that) {
                     _this2.setState({ user: that });
@@ -22205,7 +22203,7 @@ var App = function (_React$Component) {
                     console.log('ERROR!' + err);
                 });
 
-                fetch('https://api.github.com/users/' + event + '/repos' + xxx).then(function (result) {
+                fetch('https://api.github.com/users/' + event + '/repos').then(function (result) {
                     return result.json();
                 }).then(function (that) {
                     that.sort(function (a, b) {
