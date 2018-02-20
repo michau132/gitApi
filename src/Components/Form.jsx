@@ -7,9 +7,7 @@ class Form extends React.Component {
     }
     searchUser(event){
         event.preventDefault();
-        if (this.input.value !== '') {
-            this.props.handler(this.input.value);
-        }
+        this.props.handler(this.input.value);
         this.input.value = '';
     }
     render(){

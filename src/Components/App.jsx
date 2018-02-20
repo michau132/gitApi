@@ -13,51 +13,65 @@ class App extends React.Component {
     }
 
     getData(event) {
-
-        this.setState({userName: event});
-        fetch('https://api.github.com/users/' + event +xxx)
-            .then( result => result.json())
-            .then(that => {
-                this.setState({user: that})
+        if (event === '') {
+            this.setState({
+                user: '',
+                userRepo: []
             })
-            .catch(err => {
-                console.log('ERROR!' + err)
-            });
-
-        fetch('https://api.github.com/users/' + event + '/repos' + xxx)
-            .then( result => result.json())
-            .then(that => {
-                that.sort((a, b) => {
-                    if (a.pushed_at > b.pushed_at)
-                        return -1;
-                    if (a.pushed_at < b.pushed_at)
-                        return 1;
-                    return 0;
+        } else {
+            fetch('https://api.github.com/users/' + event +xxx)
+                .then( result => result.json())
+                .then(that => {
+                    this.setState({user: that})
                 })
-                this.setState({userRepo: that})
-            })
-            .catch(err => {
-                console.log('ERROR!' + err)
-            })
+                .catch(err => {
+                    console.log('ERROR!' + err)
+                });
+
+            fetch('https://api.github.com/users/' + event + '/repos' + xxx)
+                .then( result => result.json())
+                .then(that => {
+                    that.sort((a, b) => {
+                        if (a.pushed_at > b.pushed_at)
+                            return -1;
+                        if (a.pushed_at < b.pushed_at)
+                            return 1;
+                        return 0;
+                    })
+                    this.setState({userRepo: that})
+                })
+                .catch(err => {
+                    console.log('ERROR!' + err)
+                })
+        }
+
 
     }
 
     render() {
-        return (
-            <div>
-                <Form
-                    handler={this.getData}
-                />
-                <section>
+        if (this.state.user === ''){
+            return (
+                <div>
+                    <Form
+                        handler={this.getData}
+                    />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Form
+                        handler={this.getData}
+                    />
                     <UserInfo
                         personalInfo={this.state.user}
                         repo={this.state.userRepo}
                     />
-
-                </section>
-            </div>
-        )
+                </div>
+            )
+        }
     }
+
 }
 
 export default App;
