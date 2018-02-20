@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from './Form.jsx';
+import UserInfo from './UserInfo.jsx';
 const xxx = '?client_id=fccd37f38519b0d71cd7&client_secret=61572c304be174f925b52e267794cf5c9f768e00';
 class App extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class App extends React.Component {
     }
 
     getData(event) {
-        console.log(event)
+
         this.setState({userName: event});
         fetch('https://api.github.com/users/' + event +xxx)
             .then( result => result.json())
@@ -48,26 +49,11 @@ class App extends React.Component {
                     handler={this.getData}
                 />
                 <section>
-                    <h2>{this.state.user.name}</h2>
-                    <h3>{this.state.user.login}</h3>
-                    <p>Email: {this.state.user.email}</p>
-                    <img src={this.state.user.avatar_url} alt="avatar"/>
-                    <ul>
-                    {
-                        this.state.userRepo.map(element => {
-                            return (
+                    <UserInfo
+                        personalInfo={this.state.user}
+                        repo={this.state.userRepo}
+                    />
 
-                                    <li key={element.id}>
-                                        <b><i>{element.name}</i></b>
-                                        <br/>
-                                        <b>modified:</b> {element.pushed_at}
-                                    </li>
-
-
-                            )
-                        })
-                    }
-                    </ul>
                 </section>
             </div>
         )
