@@ -5,14 +5,26 @@ module.exports = {
     output: {
         filename: "./out.js"
     },
+    devServer: {
+        inline: true,
+        contentBase: './',
+        port: 3001
+    },
     watch: true,
     module: {
         loaders: [ {
             test: /\.jsx$/,
             exclude: /node_modules/,
-            loader: 'babel-loader',
+            loader: "babel-loader",
             query: {
-                presets: ['es2015', 'stage-2', 'react'] }
-        }]
+                presets: ["env", "react", "stage-2"]
+            }
+        },
+                {
+                    test: /\.css$/,
+                    use: [ 'style-loader', 'css-loader' ]
+                }
+        ],
+
     }
 }
